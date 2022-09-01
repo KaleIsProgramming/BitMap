@@ -12,7 +12,7 @@ type BitRowArray = BitRowObj[];
 
 export const BitRow = ({rowData}: any) => {
     
-    const {rowNum} = useAppSelector(state => state.bitmapSlice);
+    const {rowNum} = useAppSelector(state => state.otherSlice);
     const bitRowDiv = useRef<HTMLHeadingElement>(null);
     const bitHeight = (1 / rowNum * 100) + '%';
 
@@ -28,10 +28,10 @@ export const BitRow = ({rowData}: any) => {
     start();
 
     return(
-        <StyledBitRow ref={bitRowDiv}>
+        <StyledBitRow ref={bitRowDiv} draggable="false">
             {
                 rowData.map((bitData: BitRowObj) => {
-                    return <Bit bitData={bitData} />
+                    return <Bit bitData={bitData} draggable="false" />
                 })
             }
             
@@ -46,4 +46,5 @@ const StyledBitRow = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    -webkit-user-drag: none;
 `;

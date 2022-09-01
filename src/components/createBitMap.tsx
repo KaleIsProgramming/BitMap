@@ -13,8 +13,8 @@ export const CreateBitMap = () => {
     const inputHandler = (e: any) => {
         if(e.target.value < 1){
             e.target.value = 1;
-        } else if(e.target.value > 99) {
-            e.target.value = 99;
+        } else if(e.target.value > 50) {
+            e.target.value = 50;
         }
     }
     
@@ -35,11 +35,11 @@ export const CreateBitMap = () => {
             <h1>Wybierz ilość kolumn i rzędów</h1>
             <h2>Wybierz ilość kolumn</h2>
             <InputContainer>
-                <input type="number" name="form" ref={colNum} defaultValue="1" onInput={(e) => inputHandler(e)} required/>
+                <input type="number" name="form" ref={colNum} defaultValue="1" onInput={(e) => inputHandler(e)} required/> MAX 50
             </InputContainer>
             <h2>Wybierz ilość rzędów</h2>
             <InputContainer>
-                <input type="number" name="form" ref={rowNum} defaultValue="1" onInput={(e) => inputHandler(e)} required/>
+                <input type="number" name="form" ref={rowNum} defaultValue="1" onInput={(e) => inputHandler(e)} required/> MAX 50
             </InputContainer>
             <button name="form" onClick={() => SubmitHandler()}>Stwórz BitMape!</button>
         </CrateBitMapForm>

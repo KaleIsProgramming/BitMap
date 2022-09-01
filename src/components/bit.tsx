@@ -7,6 +7,23 @@ export const Bit = ({bitData}: any) => {
     const {activeColor, colNum} = useAppSelector(state => state.bitmapSlice);
     const bitDiv = useRef<HTMLHeadingElement>(null);
     const bitWidth = (1 / colNum * 100) + "%";
+
+    const mouseOverHandler = () => {
+        bitDiv.current!.style.backgroundColor = activeColor;
+
+    }
+
+    window.addEventListener("keydown", (e) => {
+        if(e.keyCode == 18){
+            bitDiv.current?.addEventListener("mouseover", mouseOverHandler)
+        }
+    });
+
+    window.addEventListener("keyup", (e) => {
+            bitDiv.current?.removeEventListener("mouseover", mouseOverHandler);
+    
+    });
+
     const ColorHandler = () => {
         bitDiv.current!.style.backgroundColor = activeColor;
     }
@@ -30,9 +47,9 @@ export const Bit = ({bitData}: any) => {
 }
 
 const StyledBit = styled.div`
-    height: calc(100% - 8px);
-    width: calc(10% - 8px);
-    margin: 4px;
+    height: calc(100% - 2px);
+    width: calc(10% - 2px);
+    margin: 1px;
     background: gray;
     -webkit-user-drag: none;
 `;

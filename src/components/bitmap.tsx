@@ -16,7 +16,7 @@ export const Bitmap = () => {
     }
 
     return(
-        <StyledBitMap>
+        <StyledBitMap draggable="false">
             {
                 bitMapArray.map(rowData => {
                     return <BitRow rowData={rowData} key={Math.random()}/>;
@@ -27,6 +27,7 @@ export const Bitmap = () => {
 }
 
 const StyledBitMap = styled.div`
-    height: 80vh;
+    height: 70vh;
     width: 80vw;
+    -webkit-user-drag: none;
 `;

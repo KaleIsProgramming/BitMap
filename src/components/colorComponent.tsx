@@ -23,7 +23,6 @@ export const ColorComponent = ({color}: any) => {
 
     start();
 
-    //colorBox.current!.style.backgroundColor = color;
     return(
         <StyledColorComponent ref={colorBox} onClick={() => activeColorHandler()}>
             <div></div>
@@ -32,10 +31,12 @@ export const ColorComponent = ({color}: any) => {
 };
 
 const StyledColorComponent = styled.div`
-    height: 4rem;
-    width: 4rem;
+    height: 1rem;
+    width: 1rem;
     background: black;
+    border: 1px solid white;
     cursor: pointer;
+    margin: 4px;
 
     &:hover {
         transition: 0.5s ease-in-out;
