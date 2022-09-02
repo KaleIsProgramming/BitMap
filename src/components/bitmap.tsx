@@ -1,10 +1,24 @@
+import { useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
 import { BitRow } from "./bitRow";
 import { useAppSelector } from "../store";
 
 export const Bitmap = () => {
+    const navigate = useNavigate();
     const bitMapArray = [];
     const {rowNum ,colNum} = useAppSelector(state => state.otherSlice);
+
+    const start = () => {
+        const intervalID = setInterval(() => {
+            if(rowNum === 0 && colNum === 0) {
+                navigate("/");
+                clearInterval(intervalID);
+            }
+        },100);
+
+    }
+        
+    start();
 
     for(let i = rowNum; i !== 0; i--) {
         let array = [];

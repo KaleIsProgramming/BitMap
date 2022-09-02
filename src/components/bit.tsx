@@ -4,7 +4,8 @@ import { useAppDispatch, useAppSelector } from "../store";
 import { changeColor } from "../store/slices";
 
 export const Bit = ({bitData}: any) => {
-    const {activeColor, colNum} = useAppSelector(state => state.bitmapSlice);
+    const {colNum} = useAppSelector(state => state.otherSlice);
+    const {activeColor} = useAppSelector(state => state.bitmapSlice);
     const bitDiv = useRef<HTMLHeadingElement>(null);
     const bitWidth = (1 / colNum * 100) + "%";
 

@@ -6,8 +6,8 @@ interface initialState {
 }
 
 const initialState: initialState = {
-    rowNum: 20,
-    colNum: 20
+    rowNum: 0,
+    colNum: 0
 }
 
 const otherSlice = createSlice({
