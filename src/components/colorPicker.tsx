@@ -1,10 +1,12 @@
 import { useState, useRef } from "react";
 import styled from "@emotion/styled";
-import { ColorComponent } from ".";
+import { ColorComponent, CustomColorPopUp } from ".";
 import { SlideInBottom } from "../animation";
 import { AnimatePresence, motion } from "framer-motion";
-import { useAppSelector } from "../store";
+import { useAppSelector, useAppDispatch } from "../store";
+import { pickCustomColor } from "../store/slices";
 import {ExpandLess, ExpandMore} from '@mui/icons-material';
+
 export const ColorPicker = () => {
     const colors = [
         {
@@ -106,7 +108,8 @@ export const ColorPicker = () => {
     ];
     const [isOpen, setIsOpen] = useState(true);
     const color = useRef<HTMLDivElement>(null);
-    const activeColor = useAppSelector(state => state.bitmapSlice.activeColor);
+    const dispatch = useAppDispatch();
+    const {activeColor, isCustomColorPicking} = useAppSelector(state => state.bitmapSlice);
 
     const start = () => {
         const intervalID = setInterval(() => {
@@ -118,6 +121,14 @@ export const ColorPicker = () => {
     }
 
     start();
+
+    const customColorHandler = () => {
+
+        if(!isCustomColorPicking){
+            dispatch(pickCustomColor())
+        }
+
+    }
 
     const toggleColorPickerHandler = () => {
         setIsOpen(!isOpen)
@@ -135,7 +146,7 @@ export const ColorPicker = () => {
                     </LeftContainer>
                     <MyColorsContainer> 
                         <PickedColorContainer>
-                            <PickedColor ref={color} />
+                            <PickedColor ref={color} onClick={() => customColorHandler()} />
                             <h2>Picked Color</h2>
                         </PickedColorContainer>
                         <ColorsContainer>
@@ -149,6 +160,9 @@ export const ColorPicker = () => {
                 </ColorPickerContainer>
             }
             </AnimatePresence>
+            {isCustomColorPicking && 
+                <CustomColorPopUp />
+            }
         </>
     );
 };

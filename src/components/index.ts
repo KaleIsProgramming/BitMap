@@ -5,3 +5,4 @@ export * from "./colorPicker";
 export * from "./colorComponent"
 export * from "./createBitMap";
 export * from "./clearButton";
+export * from "./customColorPopUp";
