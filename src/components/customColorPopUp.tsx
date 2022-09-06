@@ -47,12 +47,19 @@ export const CustomColorPopUp = () => {
                     inputR.current!.value = '255';
                     inputG.current!.value = '255';
                     inputB.current!.value = '255';
+                    console.log("123");
+                    return false;
+                } else if((inputR.current!.value.length === 0) || (inputG.current!.value.length === 0) || (inputB.current!.value.length === 0)) {
+                    inputR.current!.value = '0';
+                    inputG.current!.value = '0';
+                    inputB.current!.value = '0';
+                    console.log("123");
                     return false;
                 } else {
                     let isRgbRight = true;
                     for (let i = 0; i < inputs.length; i++){
                         for(let j = 0; j < inputs[i].value.length; j++){
-                            if(!(inputs[i].value.includes(rgbChars))) {
+                            if(!(rgbChars.includes(inputs[i].value))) {
                                 isRgbRight = false;
                             }
                         }
@@ -105,21 +112,31 @@ export const CustomColorPopUp = () => {
             </InfoContainer>
             <ContentContainer>    
                 <RgbPickingContainer>
-                    <h2>Model RGB:</h2>
-                    <InputsContainer>
-                        <p>R:</p>
-                        <input ref={inputR} type="text" defaultValue={0} />
-                        <p>G:</p>
-                        <input ref={inputG} type="text" defaultValue={0} />
-                        <p>B:</p>
-                        <input ref={inputB} type="text" defaultValue={0} />
-                        <button onClick={() => changeColorHandler('rgb')}>Submit</button>
-                    </InputsContainer>
+                    <RgbInputContainer>
+                        <InputsContainer>
+                            <h2>Model RGB:</h2>
+                            <p>R:</p>
+                            <input ref={inputR} type="text" defaultValue={"0"} />
+                            <p>G:</p>
+                            <input ref={inputG} type="text" defaultValue={"0"} />
+                            <p>B:</p>
+                            <input ref={inputB} type="text" defaultValue={"0"} />
+                            <button onClick={() => changeColorHandler('rgb')}>Submit</button>
+                        </InputsContainer>
+                    </RgbInputContainer>
+                    <PrePickedColorContainer>
+                        <PrePickedColor />
+                    </PrePickedColorContainer>
                 </RgbPickingContainer>
                 <HexPickingContainer>
-                    <h2>Model Hex:</h2>
-                    <input ref={inputHex} type="text" defaultValue={"#ffffff"} />
-                    <button onClick={() => changeColorHandler('hex')}>Submit</button>
+                    <HexInputContainer>
+                        <h2>Model Hex:</h2>
+                        <input ref={inputHex} type="text" defaultValue={"#ffffff"} />
+                        <button onClick={() => changeColorHandler('hex')}>Submit</button>
+                    </HexInputContainer>
+                    <PrePickedColorContainer>
+                        <PrePickedColor />
+                    </PrePickedColorContainer>
                 </HexPickingContainer>
             </ContentContainer>    
         </PopUpContainer>
@@ -173,25 +190,24 @@ const ContentContainer = styled.div`
 const RgbPickingContainer = styled.div`
     height: 65%;
     width: 100%;
+    display: flex;
     background: white;
     border-bottom: 2px solid black;
 
-    h2{
-        height: 15%;
-        width: 100%;
-        margin-left: 15px;
-    }
-
 `;
 
-const HexPickingContainer = styled.div`
-    height: 30%;
-    width: 100%;
-    margin: 15px 0px 0px 15px;
+const RgbInputContainer = styled.div`
+    height: 100%;
+    width: 60%;
     display: flex;
-    flex-direction: column;
+`
+
+const HexPickingContainer = styled.div`
+    height: 35%;
+    width: 100%;
+    display: flex;
     input, button {
-        width: 60%;
+        width: 80%;
         margin: 5px 0px;
         outline: none;
     }
@@ -204,6 +220,14 @@ const HexPickingContainer = styled.div`
 
 `;
 
+const HexInputContainer = styled.div`
+    height: 100%;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    margin: 4px 0px 0px 15px;
+`;
+
 const InputsContainer = styled.div`
     height: 85%;
     width: 100%;
@@ -212,7 +236,7 @@ const InputsContainer = styled.div`
     flex-direction: column;
 
     input, button {
-        width: 60%;
+        width: 80%;
         margin: 2px 0px;
         outline: none;
     }
@@ -223,4 +247,24 @@ const InputsContainer = styled.div`
         background: #72e46e;
         border-radius: 6px;
     }
+
+    h2{
+        height: 15%;
+        width: 100%;
+    }
+`;
+
+const PrePickedColorContainer = styled.div`
+    height: 100%;
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
+
+const PrePickedColor = styled.div`
+    height: 4rem;
+    width: 4rem;
+    background: white;
+    border: 2px solid black;
 `;
