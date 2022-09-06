@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import styled from "@emotion/styled";
 import { useAppDispatch } from "../store";
 import { pickCustomColor } from "../store/slices";
@@ -9,10 +9,17 @@ export const CustomColorPopUp = () => {
     const inputG = useRef<HTMLInputElement>(null);
     const inputB = useRef<HTMLInputElement>(null);
     const inputHex = useRef<HTMLInputElement>(null);
+    const rgbPreview= useRef<HTMLDivElement>(null);
+    const hexPreview= useRef<HTMLDivElement>(null);
     const dispatch = useAppDispatch();
 
     const closePopUpHandler = () => {
         dispatch(pickCustomColor());
+    }
+
+    const previewHandler = () => {
+        hexPreview.current!.style.backgroundColor = inputHex.current!.value;
+        rgbPreview.current!.style.backgroundColor = `rgb(${inputR.current?.value}, ${inputG.current?.value}, ${inputB.current?.value})`;
     }
 
     const changeColorHandler = (action: string) => {
@@ -116,26 +123,26 @@ export const CustomColorPopUp = () => {
                         <InputsContainer>
                             <h2>Model RGB:</h2>
                             <p>R:</p>
-                            <input ref={inputR} type="text" defaultValue={"0"} />
+                            <input ref={inputR} type="text" onInput={previewHandler} defaultValue={"0"} />
                             <p>G:</p>
-                            <input ref={inputG} type="text" defaultValue={"0"} />
+                            <input ref={inputG} type="text" onInput={previewHandler} defaultValue={"0"} />
                             <p>B:</p>
-                            <input ref={inputB} type="text" defaultValue={"0"} />
+                            <input ref={inputB} type="text" onInput={previewHandler} defaultValue={"0"} />
                             <button onClick={() => changeColorHandler('rgb')}>Submit</button>
                         </InputsContainer>
                     </RgbInputContainer>
                     <PrePickedColorContainer>
-                        <PrePickedColor />
+                        <PrePickedColor ref={rgbPreview} />
                     </PrePickedColorContainer>
                 </RgbPickingContainer>
                 <HexPickingContainer>
                     <HexInputContainer>
                         <h2>Model Hex:</h2>
-                        <input ref={inputHex} type="text" defaultValue={"#ffffff"} />
+                        <input ref={inputHex} type="text" onInput={previewHandler} defaultValue={"#ffffff"} />
                         <button onClick={() => changeColorHandler('hex')}>Submit</button>
                     </HexInputContainer>
                     <PrePickedColorContainer>
-                        <PrePickedColor />
+                        <PrePickedColor ref={hexPreview} />
                     </PrePickedColorContainer>
                 </HexPickingContainer>
             </ContentContainer>    
